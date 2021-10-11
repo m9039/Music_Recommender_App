@@ -1,0 +1,1 @@
+Music Recommender is a mobile app that provides personalised music recommendations and detailed information about each album/song.
