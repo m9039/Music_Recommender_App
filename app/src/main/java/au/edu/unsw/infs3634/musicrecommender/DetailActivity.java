@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button btn = findViewById(R.id.btnSearch);
         btn.setOnClickListener(new View.OnClickListener(){
@@ -28,7 +30,7 @@ public class DetailActivity extends AppCompatActivity {
         String message = intent.getStringExtra("eMessage"); //id
 
         Song song = Song.getSong(message);
-        setTitle("Mai's Top 10");
+        setTitle(song.getSong() + " | " + song.getArtist());
 //        setTitle(country.getCountryCode()); //displays country code in title
 
         TextView Song = findViewById(R.id.tvTitle);
@@ -45,6 +47,9 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView Genre = findViewById(R.id.tvGenre);
         Genre.setText(song.getGenre());
+
+        ImageView ImageSpot = findViewById(R.id.ivAlbumSpot);
+        ImageSpot.setImageResource(song.getSpotify());
 
     }
 
