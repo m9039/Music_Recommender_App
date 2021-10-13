@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="SORT"
         app:showAsAction="always">
         <menu>
