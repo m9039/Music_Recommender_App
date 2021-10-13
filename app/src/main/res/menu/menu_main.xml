@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="SORT"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/sortName"
+                android:title="Song: A-Z" />
+            <item
+                android:id="@+id/sortArtist"
+                android:title="Artist: A-Z" />
+            <item
+                android:id="@+id/sortGenre"
+                android:title="Genre: A-Z" />
+            <item
+                android:id="@+id/sortRatingHigh"
+                android:title="Rating: High-Low" />
+            <item
+                android:id="@+id/sortRatingLow"
+                android:title="Rating: Low-High" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/search"
+        android:icon="?android:attr/actionModeWebSearchDrawable"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+</menu>
