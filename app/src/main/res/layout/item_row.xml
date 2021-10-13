@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID"
+        android:textColor="#E8E8E8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ivAlbumArt"
         app:layout_constraintHorizontal_bias="0.5"
@@ -25,6 +26,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
+        android:textColor="#E8E8E8"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/ivAlbumArt"
@@ -44,7 +46,6 @@
         android:id="@+id/tvRecyclerGenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="TextView"
         android:textColor="#9E9E9E"
         app:layout_constraintStart_toEndOf="@+id/tvRecyclerArtist"
@@ -57,6 +58,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="52dp"
         android:text="num"
+        android:textColor="#E8E8E8"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvRecyclerSong" />
 
@@ -75,10 +78,11 @@
         android:id="@+id/ivStar"
         android:layout_width="22dp"
         android:layout_height="22dp"
+        android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/tvRecyclerRating"
-        app:layout_constraintTop_toTopOf="@+id/tvRecyclerRating"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

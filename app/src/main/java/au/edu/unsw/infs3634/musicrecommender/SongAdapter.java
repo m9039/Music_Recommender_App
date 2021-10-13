@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,10 +47,13 @@ public class SongAdapter extends RecyclerView.Adapter <SongAdapter.MyViewHolder>
         holder.artist.setText(songArtists);
 
         String songGenres = song.getGenre();
-        holder.genre.setText(songGenres);
+        holder.genre.setText(" · "+ songGenres);
 
         int songRatings = song.getRating();
         holder.rating.setText(String.valueOf(songRatings));
+
+        int songImage = song.getImage();
+        holder.image.setImageResource(songImage);
     }
 
     //counts total number of rows on the list
@@ -66,14 +70,18 @@ public class SongAdapter extends RecyclerView.Adapter <SongAdapter.MyViewHolder>
                 String charString = charSequence.toString();                //converting sequence to string
                 if (charString.isEmpty()) {                                 //check to make sure char string not empty
                     mSongsFiltered = mSongs;                        //returns original list
-                } else{
+                } else {
                     ArrayList<Song> filteredList = new ArrayList<>();
-                    for(Song song : mSongs) {
-                        if(song.getSong().toLowerCase().contains(charString.toLowerCase())){    //if search value is included in song names
+                    for (Song song : mSongs) {
+                        if (song.getSong().toLowerCase().contains(charString.toLowerCase())) {    //if search value is included in song names
                             filteredList.add(song);                                                //adds it to the filtered list
+                        } else if (song.getArtist().toLowerCase().contains(charString.toLowerCase())) {    //if search value is included in artist names
+                            filteredList.add(song);
+                        } else if (song.getGenre().toLowerCase().contains(charString.toLowerCase())) {    //if search value is included in genre names
+                            filteredList.add(song);
                         }
+                        mSongsFiltered = filteredList;
                     }
-                    mSongsFiltered = filteredList;
                 }
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = mSongsFiltered;
@@ -91,6 +99,7 @@ public class SongAdapter extends RecyclerView.Adapter <SongAdapter.MyViewHolder>
     //this method creates a view holder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final TextView ID, song, artist, genre, rating;
+        public final ImageView image;
         clickListener mListener;
         final SongAdapter songAdapter;
 
@@ -101,6 +110,7 @@ public class SongAdapter extends RecyclerView.Adapter <SongAdapter.MyViewHolder>
             artist = view.findViewById(R.id.tvRecyclerArtist);
             genre = view.findViewById(R.id.tvRecyclerGenre);
             rating = view.findViewById(R.id.tvRecyclerRating);
+            image = view.findViewById(R.id.ivAlbumArt);
             this.songAdapter = songAdapter;
             this.mListener = mListener;
             view.setOnClickListener(this);
