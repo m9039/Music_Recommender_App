@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +44,19 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);       //specifies our menu resource
+//        for(int i = 0; i < menu.size(); i++){
+//            MenuItem menuItem = menu.getItem(i);
+//            SpannableString spannableString = new SpannableString(
+//                menu.getItem(i).getTitle().toString()
+//            );
+////            #ff781f
+//            spannableString.setSpan(new ForegroundColorSpan(getResources()
+//                    .getColor(R.color.purple_500)),
+//                    0,spannableString.length(),0);
+//            menuItem.setTitle(spannableString);
+//        }
+
+
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         //listen to text changes in search view
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -77,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
                 return true;
             case R.id.sortRatingLow:
                 songAdapter.sort(5);
+                return true;
+            case R.id.sortDefault:
+                songAdapter.sort(6);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

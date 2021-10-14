@@ -118,7 +118,7 @@ public class Song {
         songs.add(new Song(1, "I Love Kanye", "Kanye West", "The Life Of Pablo", 2016, "Hip-Hop/Rap", 5, "https://genius.com/Kanye-west-i-love-kanye-lyrics", R.drawable.ilovekanye_kanyewest, R.drawable.kanye));
         songs.add(new Song(2, "Call Out My Name", "The Weeknd", "My Dear Melancholy,", 2018, "R&B/Soul", 5, "https://genius.com/The-weeknd-call-out-my-name-lyrics", R.drawable.calloutmyname_theweeknd, R.drawable.theweeknd));
         songs.add(new Song(3, "Thinkin Bout You", "Frank Ocean", "channel ORANGE", 2012, "R&B", 5, "https://genius.com/Frank-ocean-thinkin-bout-you-lyrics", R.drawable.thinkinboutyou_frankocean, R.drawable.frankocean));
-        songs.add(new Song(4, "See You Again", "Tyler, The Creator, Kali Uchis", "Flower Boy", 2017, "Hip-Hop/Rap", 5,"https://genius.com/Tyler-the-creator-see-you-again-lyrics", R.drawable.seeyouagain_tyler, R.drawable.tylerthecreator));
+        songs.add(new Song(4, "See You Again", "Tyler, The Creator, Kali Uchis", "Flower Boy", 2017, "Hip-Hop", 5,"https://genius.com/Tyler-the-creator-see-you-again-lyrics", R.drawable.seeyouagain_tyler, R.drawable.tylerthecreator));
         songs.add(new Song(5, "Don't", "Bryson Tiller", "T R A P S O U L", 2015, "R&B/Soul", 5,"https://genius.com/Bryson-tiller-dont-lyrics", R.drawable.dont_brysontiller, R.drawable.brysontiller));
         songs.add(new Song(6, "I Fall Apart", "Post Malone", "Stoney", 2016, "Hip-Hop/Rap", 4,"https://genius.com/Post-malone-i-fall-apart-lyrics", R.drawable.ifallapart_postmalone, R.drawable.postmalone));
         songs.add(new Song(7, "ICY GRL", "Saweetie", "High Maintenance", 2018, "Hip-Hop/Rap", 5,"https://genius.com/Saweetie-icy-grl-lyrics", R.drawable.icygrl_saweetie, R.drawable.saweetie));

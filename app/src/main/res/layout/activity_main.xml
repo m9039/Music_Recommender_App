@@ -20,27 +20,35 @@
             android:outlineProvider="none"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/playlistcover"
-                app:layout_collapseMode="parallax" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center">
 
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/playlistcover"
+                    app:layout_collapseMode="parallax" />
 
+                <TextView
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/gothambold"
+                    android:gravity="center"
+                    android:text="MAI'S TOP 10"
+                    android:textColor="#E8E8E8"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="MAI'S TOP 10"
-            android:textColor="#E8E8E8"
-            android:textSize="30sp"
-            android:textStyle="bold" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

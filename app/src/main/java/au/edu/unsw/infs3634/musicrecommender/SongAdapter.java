@@ -37,8 +37,12 @@ public class SongAdapter extends RecyclerView.Adapter <SongAdapter.MyViewHolder>
     public void onBindViewHolder(@NonNull SongAdapter.MyViewHolder holder, int position) {
         Song song = mSongsFiltered.get(position);
 
-        int songIDs = song.getId();
-        holder.ID.setText(String.valueOf(songIDs));
+//        for (int i = 1; i < mSongsFiltered.size(); i++){
+//            holder.ID.setText(String.valueOf(i));
+//        }
+//        int songIDs = song.getId();
+        int songPosition = position + 1;
+        holder.ID.setText(String.valueOf(songPosition));
 
         String songNames = song.getSong();
         holder.song.setText(songNames);
@@ -142,6 +146,8 @@ public class SongAdapter extends RecyclerView.Adapter <SongAdapter.MyViewHolder>
                         return o2.getRating().compareTo(o1.getRating());
                     } else if (sortMethod == 5){                        //rating low to high
                         return o1.getRating().compareTo(o2.getRating());
+                    } else if (sortMethod == 6){                        //rating low to high
+                        return o1.getId().compareTo(o2.getId());
                     }
                     return o1.getId().compareTo(o2.getId()); //if not specified it will sort by song ID
                 }

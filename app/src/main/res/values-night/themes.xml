@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Toolbar theme -->
+    <style name="Theme.myPopupTheme" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <!-- Background Colour -->
+        <item name="android:colorBackground">#313335</item>
+        <!-- Text Colour -->
+        <item name="android:textColor">@color/purple_700</item>
+    </style>
+
 </resources>

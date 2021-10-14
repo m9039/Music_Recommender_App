@@ -4,9 +4,12 @@
 
     <item
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="SORT"
+        android:title="Sort By:"
         app:showAsAction="always">
         <menu>
+            <item
+                android:id="@+id/sortDefault"
+                android:title="Default" />
             <item
                 android:id="@+id/sortName"
                 android:title="Song: A-Z" />
@@ -24,6 +27,7 @@
                 android:title="Rating: Low-High" />
         </menu>
     </item>
+
     <item
         android:id="@+id/search"
         android:icon="?android:attr/actionModeWebSearchDrawable"
