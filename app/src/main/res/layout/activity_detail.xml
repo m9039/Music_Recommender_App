@@ -31,7 +31,7 @@
         android:background="@drawable/circlebutton"
         app:icon="@android:drawable/ic_media_play"
         app:iconGravity="textEnd"
-        app:iconSize="50dp"
+        app:iconSize="45dp"
         app:iconTint="#000000"
         app:layout_constraintEnd_toEndOf="@+id/ivAlbumSpot"
         app:layout_constraintStart_toStartOf="@+id/ivAlbumSpot"
