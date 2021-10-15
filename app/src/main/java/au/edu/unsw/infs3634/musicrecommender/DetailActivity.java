@@ -18,11 +18,20 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button btn = findViewById(R.id.btnSearch);
-        btn.setOnClickListener(new View.OnClickListener(){
+        Button btnBrowser = findViewById(R.id.btnSearch);
+        btnBrowser.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 geniusSearch();
+            }
+        });
+
+        Button btnMusicPlayer = findViewById(R.id.btnPlay);
+        btnMusicPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailActivity.this, VideoActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -2,12 +2,16 @@ package au.edu.unsw.infs3634.musicrecommender;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 public class VideoActivity extends AppCompatActivity {
     //Initialise variable
@@ -38,5 +42,142 @@ public class VideoActivity extends AppCompatActivity {
         mediaPlayer = mediaPlayer.create(this,R.raw.ilovekanye);
 
         //Initialise runnable
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                //Set progress on seek bar
+                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                //Handler post delay for 0.5 seconds
+                handler.postDelayed(this,500);
+            }
+        };
+
+        //Get duration of media player
+        int duration = mediaPlayer.getDuration();
+        //Convert millisecond to minute and second
+        String sDuration = convertFormat(duration);
+        //Set duration on text view
+        playerDuration.setText(sDuration);
+
+        //Start media player when activity launches
+        mediaPlayer.start();
+        //Set current position on text view
+        playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
+        //Set max on seek bar
+        seekBar.setMax(mediaPlayer.getDuration());
+        //Start handler
+        handler.postDelayed(runnable,0);
+
+        btnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Hide play button
+                btnPlay.setVisibility(View.GONE);
+                //Show pause button
+                btnPause.setVisibility(View.VISIBLE);
+                //Start media player
+                mediaPlayer.start();
+                //Set max on seek bar
+                seekBar.setMax(mediaPlayer.getDuration());
+                //Start handler
+                handler.postDelayed(runnable,0);
+            }
+        });
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Hide pause button
+                btnPause.setVisibility(View.GONE);
+                //Show play button
+                btnPlay.setVisibility(View.VISIBLE);
+                //Pause media player
+                mediaPlayer.pause();
+                //Stop handler
+                handler.removeCallbacks(runnable);
+            }
+        });
+
+        btnForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Get current position of media player
+                int currentPosition = mediaPlayer.getCurrentPosition();
+                //Get duration of media player
+                int duration = mediaPlayer.getDuration();
+                //Check condition
+                if (mediaPlayer.isPlaying() && duration != currentPosition){
+                    //When media player is playing and duration is not equal to current position
+                    //Fast forward for 5 seconds
+                    currentPosition = currentPosition + 5000;
+                    //Set current position on text view
+                    playerPosition.setText(convertFormat(currentPosition));
+                    //Set progress on seek bar
+                    mediaPlayer.seekTo(currentPosition);
+                }
+            }
+        });
+
+        btnRewind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Get current position of media player
+                int currentPosition = mediaPlayer.getCurrentPosition();
+                //Check condition
+                if (mediaPlayer.isPlaying() && currentPosition > 5000){
+                    //When media is playing and current position is greater than 5 seconds
+                    //Rewind for 5 seconds
+                    currentPosition = currentPosition - 5000;
+                    //Get current position on text view
+                    playerPosition.setText(convertFormat(currentPosition));
+                    //Set progress on seek bar
+                    mediaPlayer.seekTo(currentPosition);
+                }
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //Check condition
+                if (fromUser){
+                    //When drag the seek bar
+                    //Set progress on seek bar
+                    mediaPlayer.seekTo(progress);
+                }
+                //Set current position on text view
+                playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                //Hide pause button
+                btnPause.setVisibility(View.GONE);
+                //Show play button
+                btnPlay.setVisibility(View.VISIBLE);
+                //Set media player to initial position
+                mediaPlayer.seekTo(0);
+            }
+        });
+    }
+
+    @SuppressLint("DefaultLocale")
+    private String convertFormat(int duration) {
+        return String.format("%02d:%02d"
+        , TimeUnit.MILLISECONDS.toMinutes(duration)
+        , TimeUnit.MILLISECONDS.toSeconds(duration) -
+        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 }
