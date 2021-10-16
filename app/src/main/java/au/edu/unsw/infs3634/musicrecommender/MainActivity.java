@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
         mRecyclerView.setAdapter(songAdapter);
     }
 
+    //When user clicks on a song
     public void onClick(int position){
         String message = mSongs.get(position).getSong();
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);

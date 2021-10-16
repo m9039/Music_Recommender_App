@@ -6,11 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
+
+    public ArrayList<Song> mSongs = Song.getSongs();
+    public Song song;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +29,21 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+
         Button btnMusicPlayer = findViewById(R.id.btnPlay);
         btnMusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sendSong = song.getSong();
+                String sendArtist = song.getArtist();
+                Integer sendRating = song.getRating();
+                Integer sendImage = song.getImage();
+
                 Intent intent = new Intent(DetailActivity.this, VideoActivity.class);
+                intent.putExtra("receiveSong", sendSong);
+                intent.putExtra("receiveArtist", sendArtist);
+                intent.putExtra("receiveRating", sendRating);
+                intent.putExtra("receiveImage", sendImage);
                 startActivity(intent);
             }
         });
@@ -38,9 +51,8 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra("eMessage"); //id
 
-        Song song = Song.getSong(message);
-        setTitle(song.getSong() + " | " + song.getArtist());
-//        setTitle(country.getCountryCode()); //displays country code in title
+        song = Song.getSong(message);
+        setTitle(song.getSong() + " | " + song.getArtist());   //display song and artist in title
 
         TextView Song = findViewById(R.id.tvTitle);
         Song.setText(song.getSong());
@@ -59,6 +71,11 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView ImageSpot = findViewById(R.id.ivAlbumSpot);
         ImageSpot.setImageResource(song.getSpotify());
+
+//        String sendSong = song.getSong();
+//        String sendArtist = song.getArtist();
+//        Integer sendRating = song.getRating();
+//        Integer sendImage = song.getImage();
 
     }
 

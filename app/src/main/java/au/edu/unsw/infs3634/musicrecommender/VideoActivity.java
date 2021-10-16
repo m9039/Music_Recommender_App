@@ -3,6 +3,7 @@ package au.edu.unsw.infs3634.musicrecommender;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,14 +11,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import java.util.concurrent.TimeUnit;
 
 public class VideoActivity extends AppCompatActivity {
+    public Song song;
+
     //Initialise variable
-    TextView playerPosition, playerDuration;
+    TextView playerPosition, playerDuration,audioSong, audioArtist, audioRating;
     SeekBar seekBar;
-    ImageView btnRewind, btnPlay, btnPause, btnForward;
+    ImageView btnRewind, btnPlay, btnPause, btnForward, audioImage;
 
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
@@ -37,9 +39,23 @@ public class VideoActivity extends AppCompatActivity {
         btnPlay = findViewById(R.id.btn_play);
         btnPause = findViewById(R.id.btn_pause);
         btnForward = findViewById(R.id.btn_fastforward);
+        audioSong = findViewById(R.id.tvAudioSong);
+        audioArtist = findViewById(R.id.tvAudioArtist);
+        audioImage = findViewById(R.id.audioImage);
+
+        Intent intent = getIntent();
+        String sendSong = intent.getStringExtra("receiveSong");
+        song = Song.getSong(sendSong);
+        audioSong.setText(song.getSong());
+
+        setTitle(song.getSong());
+
+        audioArtist.setText(song.getArtist());
+
+        audioImage.setImageResource(song.getImage());
 
         //Initialise media player
-        mediaPlayer = mediaPlayer.create(this,R.raw.ilovekanye);
+        mediaPlayer = mediaPlayer.create(this,song.getAudio());
 
         //Initialise runnable
         runnable = new Runnable() {

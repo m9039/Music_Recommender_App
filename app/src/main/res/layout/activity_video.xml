@@ -12,9 +12,34 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="300dp"
+        android:id="@+id/audioImage"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="45dp"
         android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvAudioSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:fontFamily="@font/gothambold"
+        android:text="Song"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAudioArtist"
+        android:text="Artist"
+        android:textSize="15dp"
+        android:textColor="#D1D1D1"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="10dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,12 +48,12 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/player_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/player_position"
             android:text="00:00"
-            android:textStyle="bold"
-            android:textColor="#D1D1D1"/>
+            android:textColor="#D1D1D1"
+            android:textStyle="bold" />
 
         <SeekBar
             android:layout_width="0dp"
@@ -56,10 +81,12 @@
         android:layout_marginTop="8dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
             android:id="@+id/btn_rewind"
-            android:src="@drawable/ic_rewind"/>
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_rewind" />
 
         <ImageView
             android:layout_width="60dp"
@@ -76,10 +103,12 @@
             android:src="@drawable/ic_pause"/>
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
             android:id="@+id/btn_fastforward"
-            android:src="@drawable/ic_fastforward"/>
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/ic_fastforward" />
 
     </LinearLayout>
 
