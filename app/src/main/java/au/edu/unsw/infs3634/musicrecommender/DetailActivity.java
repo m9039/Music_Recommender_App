@@ -29,21 +29,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-
-        Button btnMusicPlayer = findViewById(R.id.btnPlay);
+        ImageView btnMusicPlayer = findViewById(R.id.btnPlay);
         btnMusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String sendSong = song.getSong();
-                String sendArtist = song.getArtist();
-                Integer sendRating = song.getRating();
-                Integer sendImage = song.getImage();
-
                 Intent intent = new Intent(DetailActivity.this, VideoActivity.class);
                 intent.putExtra("receiveSong", sendSong);
-                intent.putExtra("receiveArtist", sendArtist);
-                intent.putExtra("receiveRating", sendRating);
-                intent.putExtra("receiveImage", sendImage);
                 startActivity(intent);
             }
         });
@@ -69,13 +61,14 @@ public class DetailActivity extends AppCompatActivity {
         TextView Genre = findViewById(R.id.tvGenre);
         Genre.setText(song.getGenre());
 
+        TextView Rating = findViewById(R.id.tvRating);
+        Rating.setText(""+song.getRating());
+
+        TextView Review = findViewById(R.id.tvReview);
+        Review.setText(song.getReview());
+
         ImageView ImageSpot = findViewById(R.id.ivAlbumSpot);
         ImageSpot.setImageResource(song.getSpotify());
-
-//        String sendSong = song.getSong();
-//        String sendArtist = song.getArtist();
-//        Integer sendRating = song.getRating();
-//        Integer sendImage = song.getImage();
 
     }
 

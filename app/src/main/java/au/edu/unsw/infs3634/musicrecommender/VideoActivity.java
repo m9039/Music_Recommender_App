@@ -45,13 +45,11 @@ public class VideoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String sendSong = intent.getStringExtra("receiveSong");
+        //Set title as song name
         song = Song.getSong(sendSong);
         audioSong.setText(song.getSong());
-
         setTitle(song.getSong());
-
         audioArtist.setText(song.getArtist());
-
         audioImage.setImageResource(song.getImage());
 
         //Initialise media player
@@ -84,6 +82,7 @@ public class VideoActivity extends AppCompatActivity {
         //Start handler
         handler.postDelayed(runnable,0);
 
+        //When play button is clicked
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +99,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        //When pause button is clicked
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +114,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        ////When fast forward button is clicked
         btnForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +135,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        //When rewind button is clicked
         btnRewind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,6 +154,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        //When user interacts with seek bar e.g. audio scrubbing
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -176,6 +179,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        //Once the song has finished playing/reached the end
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -189,6 +193,7 @@ public class VideoActivity extends AppCompatActivity {
         });
     }
 
+    //Converting milliseconds
     @SuppressLint("DefaultLocale")
     private String convertFormat(int duration) {
         return String.format("%02d:%02d"
