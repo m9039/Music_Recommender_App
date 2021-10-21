@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
                 songAdapter.getFilter().filter(query);
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {            //when there are text changes
                 songAdapter.getFilter().filter(newText);

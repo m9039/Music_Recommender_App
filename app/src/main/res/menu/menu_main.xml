@@ -9,7 +9,7 @@
         <menu>
             <item
                 android:id="@+id/sortDefault"
-                android:title="Default" />
+                android:title="Default"/>
             <item
                 android:id="@+id/sortName"
                 android:title="Song: A-Z" />

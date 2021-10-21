@@ -82,11 +82,11 @@
 
         <ImageView
             android:id="@+id/btn_rewind"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/ic_rewind" />
+            android:layout_marginRight="40dp"
+            android:src="@drawable/ic_rewindfive" />
 
         <ImageView
             android:layout_width="60dp"
@@ -104,11 +104,11 @@
 
         <ImageView
             android:id="@+id/btn_fastforward"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/ic_fastforward" />
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/ic_forwardfive" />
 
     </LinearLayout>
 

@@ -69,7 +69,6 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView ImageSpot = findViewById(R.id.ivAlbumSpot);
         ImageSpot.setImageResource(song.getSpotify());
-
     }
 
     public void geniusSearch() {
@@ -79,4 +78,8 @@ public class DetailActivity extends AppCompatActivity {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(song.getWebsite()));
         startActivity(i);
     }
+
+//    public int getRandomSong() {
+//
+//    }
 }

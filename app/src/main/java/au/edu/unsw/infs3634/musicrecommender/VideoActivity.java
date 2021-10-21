@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -52,10 +53,25 @@ public class VideoActivity extends AppCompatActivity {
         audioArtist.setText(song.getArtist());
         audioImage.setImageResource(song.getImage());
 
-        //Initialise media player
-        mediaPlayer = mediaPlayer.create(this,song.getAudio());
+        initialiseMediaPlayer();
+        initialiseRunnable();
+        getDuration();
+        startMediaPlayer();
+        playButtonClicked();
+        pauseButtonClicked();
+        forwardButtonClicked();
+        rewindButtonClicked();
+        seekbarChanged();
+        setSongCompletion();
+    }
 
-        //Initialise runnable
+    //Initialise media player
+    public void initialiseMediaPlayer() {
+        mediaPlayer = mediaPlayer.create(this,song.getAudio());
+    }
+
+    //Initialise runnable
+    public void initialiseRunnable(){
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -65,15 +81,19 @@ public class VideoActivity extends AppCompatActivity {
                 handler.postDelayed(this,500);
             }
         };
+    }
 
-        //Get duration of media player
+    //Get duration of media player
+    public void getDuration(){
         int duration = mediaPlayer.getDuration();
         //Convert millisecond to minute and second
         String sDuration = convertFormat(duration);
         //Set duration on text view
         playerDuration.setText(sDuration);
+    }
 
-        //Start media player when activity launches
+    //Start media player when activity launches
+    public void startMediaPlayer(){
         mediaPlayer.start();
         //Set current position on text view
         playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
@@ -81,8 +101,10 @@ public class VideoActivity extends AppCompatActivity {
         seekBar.setMax(mediaPlayer.getDuration());
         //Start handler
         handler.postDelayed(runnable,0);
+    }
 
-        //When play button is clicked
+    //When play button is clicked
+    public void playButtonClicked() {
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,8 +120,10 @@ public class VideoActivity extends AppCompatActivity {
                 handler.postDelayed(runnable,0);
             }
         });
+    }
 
-        //When pause button is clicked
+    //When pause button is clicked
+    public void pauseButtonClicked() {
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,8 +137,10 @@ public class VideoActivity extends AppCompatActivity {
                 handler.removeCallbacks(runnable);
             }
         });
+    }
 
-        ////When fast forward button is clicked
+    //When fast forward button is clicked
+    public void forwardButtonClicked() {
         btnForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,8 +160,10 @@ public class VideoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        //When rewind button is clicked
+    //When rewind button is clicked
+    public void rewindButtonClicked() {
         btnRewind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,8 +181,10 @@ public class VideoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        //When user interacts with seek bar e.g. audio scrubbing
+    //When user interacts with seek bar e.g. audio scrubbing
+    public void seekbarChanged () {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -167,19 +197,16 @@ public class VideoActivity extends AppCompatActivity {
                 //Set current position on text view
                 playerPosition.setText(convertFormat(mediaPlayer.getCurrentPosition()));
             }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+    }
 
-        //Once the song has finished playing/reached the end
+    //Once the song has finished playing/reached the end
+    public void setSongCompletion() {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -191,6 +218,24 @@ public class VideoActivity extends AppCompatActivity {
                 mediaPlayer.seekTo(0);
             }
         });
+    }
+
+    //Stops the media player
+    private void releaseMediaPlayer() {
+        if(mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+    }
+
+    //When back button is clicked, media player is stopped and returns back to detail activity
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id==android.R.id.home) {
+            releaseMediaPlayer();
+            finish();
+        }
+        return true;
     }
 
     //Converting milliseconds
