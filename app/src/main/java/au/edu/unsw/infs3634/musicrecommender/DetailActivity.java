@@ -78,8 +78,4 @@ public class DetailActivity extends AppCompatActivity {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(song.getWebsite()));
         startActivity(i);
     }
-
-//    public int getRandomSong() {
-//
-//    }
 }

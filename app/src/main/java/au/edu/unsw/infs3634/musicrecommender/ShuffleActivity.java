@@ -12,15 +12,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class VideoActivity extends AppCompatActivity {
+public class ShuffleActivity extends AppCompatActivity {
     public Song song;
+    public ArrayList<Song> mSongs = Song.getSongs();
 
     //Initialise variable
     TextView playerPosition, playerDuration,audioSong, audioArtist;
     SeekBar seekBar;
-    ImageView btnRewind, btnPlay, btnPause, btnForward, audioImage;
+    ImageView btnPrevious, btnPlay, btnPause, btnNext, audioImage;
 
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
@@ -29,29 +33,31 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video);
+        setContentView(R.layout.activity_shuffle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Assign variable
         playerPosition = findViewById(R.id.player_position);
         playerDuration = findViewById(R.id.player_duration);
         seekBar = findViewById(R.id.seek_bar);
-        btnRewind = findViewById(R.id.btn_rewind);
+        btnPrevious = findViewById(R.id.btn_previous);
         btnPlay = findViewById(R.id.btn_play);
         btnPause = findViewById(R.id.btn_pause);
-        btnForward = findViewById(R.id.btn_fastforward);
+        btnNext = findViewById(R.id.btn_next);
         audioSong = findViewById(R.id.tvAudioSong);
         audioArtist = findViewById(R.id.tvAudioArtist);
         audioImage = findViewById(R.id.audioImage);
 
         Intent intent = getIntent();
-        String sendSong = intent.getStringExtra("receiveSong");
+        String randomSong = intent.getStringExtra("receiveRandom");
         //Set title as song name
-        song = Song.getSong(sendSong);
+        song = Song.getSong(randomSong);
         audioSong.setText(song.getSong());
-        setTitle(song.getSong());
+        setTitle("Shuffle Mai's Top 10");
         audioArtist.setText(song.getArtist());
         audioImage.setImageResource(song.getImage());
+
+        btnPlay.setVisibility(View.GONE);
 
         initialiseMediaPlayer();
         initialiseRunnable();
@@ -59,8 +65,8 @@ public class VideoActivity extends AppCompatActivity {
         startMediaPlayer();
         playButtonClicked();
         pauseButtonClicked();
-        forwardButtonClicked();
-        rewindButtonClicked();
+        nextButtonClicked();
+        previousButtonClicked();
         seekbarChanged();
         setSongCompletion();
     }
@@ -140,45 +146,62 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     //When fast forward button is clicked
-    public void forwardButtonClicked() {
-        btnForward.setOnClickListener(new View.OnClickListener() {
+    public void nextButtonClicked() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Get current position of media player
-                int currentPosition = mediaPlayer.getCurrentPosition();
-                //Get duration of media player
-                int duration = mediaPlayer.getDuration();
-                //Check condition
-                if (mediaPlayer.isPlaying() && duration != currentPosition){
-                    //When media player is playing and duration is not equal to current position
-                    //Fast forward for 5 seconds
-                    currentPosition = currentPosition + 5000;
-                    //Set current position on text view
-                    playerPosition.setText(convertFormat(currentPosition));
-                    //Set progress on seek bar
-                    mediaPlayer.seekTo(currentPosition);
-                }
+                releaseMediaPlayer();
+
+                Random random = new Random();
+                int randomPosition = random.nextInt(mSongs.size() + 1);
+                String randomSong = mSongs.get(randomPosition).getSong();
+
+                song = Song.getSong(randomSong);
+                audioSong.setText(song.getSong());
+                audioArtist.setText(song.getArtist());
+                audioImage.setImageResource(song.getImage());
+
+                initialiseMediaPlayer();
+                initialiseRunnable();
+                getDuration();
+                startMediaPlayer();
+                playButtonClicked();
+                pauseButtonClicked();
+                nextButtonClicked();
+                previousButtonClicked();
+                seekbarChanged();
+                setSongCompletion();
             }
         });
     }
 
     //When rewind button is clicked
-    public void rewindButtonClicked() {
-        btnRewind.setOnClickListener(new View.OnClickListener() {
+    public void previousButtonClicked() {
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Get current position of media player
-                int currentPosition = mediaPlayer.getCurrentPosition();
-                //Check condition
-                if (mediaPlayer.isPlaying() && currentPosition > 5000){
-                    //When media is playing and current position is greater than 5 seconds
-                    //Rewind for 5 seconds
-                    currentPosition = currentPosition - 5000;
-                    //Get current position on text view
-                    playerPosition.setText(convertFormat(currentPosition));
-                    //Set progress on seek bar
-                    mediaPlayer.seekTo(currentPosition);
-                }
+                releaseMediaPlayer();
+
+                Random random = new Random();
+                int randomPosition = random.nextInt(mSongs.size() - 1);
+//                if ((randomPosition - 1) < 0 ? (mSongs.size()) - 1 ) : (randomPosition - 1));
+                String randomSong = mSongs.get(randomPosition).getSong();
+
+                song = Song.getSong(randomSong);
+                audioSong.setText(song.getSong());
+                audioArtist.setText(song.getArtist());
+                audioImage.setImageResource(song.getImage());
+
+                initialiseMediaPlayer();
+                initialiseRunnable();
+                getDuration();
+                startMediaPlayer();
+                playButtonClicked();
+                pauseButtonClicked();
+                nextButtonClicked();
+                previousButtonClicked();
+                seekbarChanged();
+                setSongCompletion();
             }
         });
     }
@@ -242,8 +265,8 @@ public class VideoActivity extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     private String convertFormat(int duration) {
         return String.format("%02d:%02d"
-        , TimeUnit.MILLISECONDS.toMinutes(duration)
-        , TimeUnit.MILLISECONDS.toSeconds(duration) -
-        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
+                , TimeUnit.MILLISECONDS.toMinutes(duration)
+                , TimeUnit.MILLISECONDS.toSeconds(duration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
     }
 }

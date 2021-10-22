@@ -45,6 +45,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
+                        android:id="@+id/ibShuffle"
                         android:layout_width="83dp"
                         android:layout_height="91dp"
                         android:layout_marginStart="255dp"

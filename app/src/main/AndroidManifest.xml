@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicRecommender">
         <activity
+            android:name=".ShuffleActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".VideoActivity"
             android:exported="true"
-            android:parentActivityName=".DetailActivity"/>
+            android:parentActivityName=".DetailActivity" />
         <activity
             android:name=".DetailActivity"
             android:exported="true"
@@ -22,6 +26,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
