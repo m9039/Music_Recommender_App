@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@drawable/gradient_background"
-    tools:context=".VideoActivity">
+    tools:context=".AudioActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_marginLeft="12dp"
         android:fontFamily="@font/gothambold"
         android:text="Song"
-        android:textSize="30dp"
+        android:textSize="29dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

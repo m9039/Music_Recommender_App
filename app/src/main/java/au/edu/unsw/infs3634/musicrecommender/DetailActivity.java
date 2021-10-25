@@ -34,7 +34,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String sendSong = song.getSong();
-                Intent intent = new Intent(DetailActivity.this, VideoActivity.class);
+                Intent intent = new Intent(DetailActivity.this, AudioActivity.class);
                 intent.putExtra("receiveSong", sendSong);
                 startActivity(intent);
             }

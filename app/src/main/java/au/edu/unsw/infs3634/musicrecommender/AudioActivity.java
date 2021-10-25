@@ -14,7 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
-public class VideoActivity extends AppCompatActivity {
+public class AudioActivity extends AppCompatActivity {
     public Song song;
 
     //Initialise variable
@@ -29,7 +29,7 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video);
+        setContentView(R.layout.activity_audio);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Assign variable

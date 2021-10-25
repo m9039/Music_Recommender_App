@@ -14,7 +14,7 @@
             android:exported="true"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".VideoActivity"
+            android:name=".AudioActivity"
             android:exported="true"
             android:parentActivityName=".DetailActivity" />
         <activity

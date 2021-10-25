@@ -14,12 +14,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ListIterator;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ShuffleActivity extends AppCompatActivity {
     public Song song;
     public ArrayList<Song> mSongs = Song.getSongs();
+    public ArrayList<Song> mShuffleSongs = Song.getSongs();
+    int shuffleIndex = 0;
 
     //Initialise variable
     TextView playerPosition, playerDuration,audioSong, audioArtist;
@@ -48,9 +52,11 @@ public class ShuffleActivity extends AppCompatActivity {
         audioArtist = findViewById(R.id.tvAudioArtist);
         audioImage = findViewById(R.id.audioImage);
 
+        Collections.shuffle(mShuffleSongs);
+        mShuffleSongs.toArray(Song.getSongs().toArray(new Song[0]));
+
         Intent intent = getIntent();
         String randomSong = intent.getStringExtra("receiveRandom");
-        //Set title as song name
         song = Song.getSong(randomSong);
         audioSong.setText(song.getSong());
         setTitle("Shuffle Mai's Top 10");
@@ -152,9 +158,11 @@ public class ShuffleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 releaseMediaPlayer();
 
+//                this works
                 Random random = new Random();
-                int randomPosition = random.nextInt(mSongs.size() + 1);
-                String randomSong = mSongs.get(randomPosition).getSong();
+                int randomPosition = random.nextInt(mShuffleSongs.size());
+                String randomSong = mShuffleSongs.get(randomPosition).getSong();
+
 
                 song = Song.getSong(randomSong);
                 audioSong.setText(song.getSong());
@@ -182,10 +190,11 @@ public class ShuffleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 releaseMediaPlayer();
 
+//                this works
                 Random random = new Random();
-                int randomPosition = random.nextInt(mSongs.size() - 1);
-//                if ((randomPosition - 1) < 0 ? (mSongs.size()) - 1 ) : (randomPosition - 1));
-                String randomSong = mSongs.get(randomPosition).getSong();
+                int randomPosition = random.nextInt(mShuffleSongs.size());
+                String randomSong = mShuffleSongs.get(randomPosition).getSong();
+
 
                 song = Song.getSong(randomSong);
                 audioSong.setText(song.getSong());

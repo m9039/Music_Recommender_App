@@ -13,11 +13,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements SongAdapter.clickListener {
 
     public ArrayList<Song> mSongs = Song.getSongs();
+    public ArrayList<Song> mShuffleSongs = Song.getSongs();
     public RecyclerView mRecyclerView;
     public SongAdapter songAdapter;
     ImageButton ibShuffle;
@@ -101,19 +103,20 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
         ibShuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Random random = new Random();
-                int randomPosition = random.nextInt(mSongs.size());
-                String randomSong = mSongs.get(randomPosition).getSong();
+                Collections.shuffle(mShuffleSongs);
+                mShuffleSongs.toArray(Song.getSongs().toArray(new Song[0]));
+                String randomSong = mShuffleSongs.get(0).getSong();
+//                String stringRandomSong = String.valueOf(randomSong);
+
+
+//                Random random = new Random();
+//                int randomPosition = random.nextInt(mSongs.size());
+//                String randomSong = mSongs.get(randomPosition).getSong();
                 Intent intent = new Intent(MainActivity.this, ShuffleActivity.class);
                 intent.putExtra("receiveRandom", randomSong);
+//                intent.putExtra("receiveRandom", mShuffleSongs);
                 startActivity(intent);
             }
         });
-    }
-
-    public int getRandomSong(int integer) {
-        Random random = new Random();
-        //Generates random number between 0 and mSongs.size
-        return random.nextInt(integer + 1);
     }
 }
