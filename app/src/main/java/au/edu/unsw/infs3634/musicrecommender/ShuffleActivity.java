@@ -40,7 +40,7 @@ public class ShuffleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shuffle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Assign variable
+        //Assign variables
         playerPosition = findViewById(R.id.player_position);
         playerDuration = findViewById(R.id.player_duration);
         seekBar = findViewById(R.id.seek_bar);
@@ -52,19 +52,28 @@ public class ShuffleActivity extends AppCompatActivity {
         audioArtist = findViewById(R.id.tvAudioArtist);
         audioImage = findViewById(R.id.audioImage);
 
+        //Shuffles the arraylist
         Collections.shuffle(mShuffleSongs);
+        //Updates the array with the new shuffled order
         mShuffleSongs.toArray(Song.getSongs().toArray(new Song[0]));
 
+        //Gets the intent from main activity
         Intent intent = getIntent();
         String randomSong = intent.getStringExtra("receiveRandom");
         song = Song.getSong(randomSong);
-        audioSong.setText(song.getSong());
+
+        //Set action bar title
         setTitle("Shuffle Mai's Top 10");
+
+        //Display data in textview/imageview
+        audioSong.setText(song.getSong());
         audioArtist.setText(song.getArtist());
         audioImage.setImageResource(song.getImage());
 
+        //Hides the play button because music plays immediately as the activity launches
         btnPlay.setVisibility(View.GONE);
 
+        //Calls upon the following methods:
         initialiseMediaPlayer();
         initialiseRunnable();
         getDuration();
@@ -158,11 +167,10 @@ public class ShuffleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 releaseMediaPlayer();
 
-//                this works
+                //Randomise array list so that it will shuffle next random song
                 Random random = new Random();
                 int randomPosition = random.nextInt(mShuffleSongs.size());
                 String randomSong = mShuffleSongs.get(randomPosition).getSong();
-
 
                 song = Song.getSong(randomSong);
                 audioSong.setText(song.getSong());
@@ -190,11 +198,10 @@ public class ShuffleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 releaseMediaPlayer();
 
-//                this works
+                //Randomise array list so that it will shuffle next random song
                 Random random = new Random();
                 int randomPosition = random.nextInt(mShuffleSongs.size());
                 String randomSong = mShuffleSongs.get(randomPosition).getSong();
-
 
                 song = Song.getSong(randomSong);
                 audioSong.setText(song.getSong());

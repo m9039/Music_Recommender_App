@@ -15,20 +15,39 @@ public class DetailActivity extends AppCompatActivity {
     public ArrayList<Song> mSongs = Song.getSongs();
     public Song song;
 
+    //Initialise variables
+    TextView SongName, Artist, Album, YearProduced, Genre, Rating, Review;
+    ImageView ImageSpot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Assign variables
+        SongName = findViewById(R.id.tvTitle);
+        Artist = findViewById(R.id.tvArtist);
+        Album = findViewById(R.id.tvAlbum);
+        YearProduced = findViewById(R.id.tvYearProduced);
+        Genre = findViewById(R.id.tvGenre);
+        Rating = findViewById(R.id.tvRating);
+        Review = findViewById(R.id.tvReview);
+        ImageSpot = findViewById(R.id.ivAlbumSpot);
+
+        //Launch display data method
+        displayData();
+
+        //When user clicks search button, geniusSearch method is launched
         Button btnBrowser = findViewById(R.id.btnSearch);
-        btnBrowser.setOnClickListener(new View.OnClickListener(){
+        btnBrowser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 geniusSearch();
             }
         });
 
+        //When user clicks on play button, the song name is transfewred to AudioActivity where the song is played
         ImageView btnMusicPlayer = findViewById(R.id.btnPlay);
         btnMusicPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,38 +58,30 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    //Displays data in textview and imageview
+    public void displayData() {
+        //Gets the intent from main activity
         Intent intent = getIntent();
         String message = intent.getStringExtra("eMessage"); //id
-
         song = Song.getSong(message);
+
+        //Set actionbar title as song name | artist
         setTitle(song.getSong() + " | " + song.getArtist());   //display song and artist in title
 
-        TextView Song = findViewById(R.id.tvTitle);
-        Song.setText(song.getSong());
-
-        TextView Artist = findViewById(R.id.tvArtist);
+        //Set data into respective textview/imageview
+        SongName.setText(song.getSong());
         Artist.setText(song.getArtist());
-
-        TextView Album = findViewById(R.id.tvAlbum);
         Album.setText(song.getAlbum());
-
-        TextView YearProduced = findViewById(R.id.tvYearProduced);
         YearProduced.setText(""+song.getYearProduced());
-
-        TextView Genre = findViewById(R.id.tvGenre);
         Genre.setText(song.getGenre());
-
-        TextView Rating = findViewById(R.id.tvRating);
         Rating.setText(""+song.getRating());
-
-        TextView Review = findViewById(R.id.tvReview);
         Review.setText(song.getReview());
-
-        ImageView ImageSpot = findViewById(R.id.ivAlbumSpot);
         ImageSpot.setImageResource(song.getSpotify());
     }
 
+    //Implicit intent on sending specific url to the browser
     public void geniusSearch() {
         Intent intent = getIntent();
         String message = intent.getStringExtra("eMessage"); //id NOT SURE IF THIS LINE IS NEEDED

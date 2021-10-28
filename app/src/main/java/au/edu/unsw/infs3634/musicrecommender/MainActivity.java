@@ -18,6 +18,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements SongAdapter.clickListener {
 
+    //Initialise variables
     public ArrayList<Song> mSongs = Song.getSongs();
     public ArrayList<Song> mShuffleSongs = Song.getSongs();
     public RecyclerView mRecyclerView;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Instantiate variable
         ibShuffle = findViewById(R.id.ibShuffle);
 
         //Instantiate recyclerview
@@ -37,33 +39,41 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
         songAdapter = new SongAdapter(this, mSongs, this);
         mRecyclerView.setAdapter(songAdapter);
 
+        //Launce shuffleButtonClicked method
         shuffleButtonClicked();
     }
 
-    //When user clicks on a song
+    //When user clicks on a song in recycler view
     public void onClick(int position){
         String message = mSongs.get(position).getSong();
+        //Launch detail activity and pass data over through an intent
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra("eMessage", message);
         startActivity(intent);
     }
 
-    //adds the menu
+    //Adds the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);       //specifies our menu resource
 
+        //Specifies our menu resource
+        inflater.inflate(R.menu.menu_main, menu);
+
+        //Initialise variable
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        //listen to text changes in search view
+
+        //Listen for text changes in search view
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {        //when user types something and presses enter
+            //When user types something and presses enter
+            public boolean onQueryTextSubmit(String query) {
                 songAdapter.getFilter().filter(query);
                 return false;
             }
             @Override
-            public boolean onQueryTextChange(String newText) {            //when there are text changes
+            //When there are text changes
+            public boolean onQueryTextChange(String newText) {
                 songAdapter.getFilter().filter(newText);
                 return false;
             }
@@ -71,26 +81,38 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
         return true;
     }
 
-    //react to user interaction with the menu
+    //React to user interaction with the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
+            //When user wants to sort by name
             case R.id.sortName:
+                //Calls upon sort method 1 from the songAdaptor
                 songAdapter.sort(1);
                 return true;
+            //When user want to sort by artist
             case R.id.sortArtist:
+                //Calls upon sort method 2 from the songAdaptor
                 songAdapter.sort(2);
                 return true;
+            //When user wants to sort by genre
             case R.id.sortGenre:
+                //Calls upon sort method 3 from the songAdaptor
                 songAdapter.sort(3);
                 return true;
+            //When user wants to sort by rating: high-low
             case R.id.sortRatingHigh:
+                //Calls upon sort method 4 from the songAdaptor
                 songAdapter.sort(4);
                 return true;
+            //When user wants to sort by rating: low-high
             case R.id.sortRatingLow:
+                //Calls upon sort method 5 from the songAdaptor
                 songAdapter.sort(5);
                 return true;
+            //When user wants to sort by default
             case R.id.sortDefault:
+                //Calls upon sort method 6 from the songAdaptor
                 songAdapter.sort(6);
                 return true;
             default:
@@ -103,18 +125,14 @@ public class MainActivity extends AppCompatActivity implements SongAdapter.click
         ibShuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Shuffles the arraylist
                 Collections.shuffle(mShuffleSongs);
+                //Updates the array with the new shuffled order
                 mShuffleSongs.toArray(Song.getSongs().toArray(new Song[0]));
+                //Gets the first shuffled song and passes it through the intent to be displayed in shuffle activity
                 String randomSong = mShuffleSongs.get(0).getSong();
-//                String stringRandomSong = String.valueOf(randomSong);
-
-
-//                Random random = new Random();
-//                int randomPosition = random.nextInt(mSongs.size());
-//                String randomSong = mSongs.get(randomPosition).getSong();
                 Intent intent = new Intent(MainActivity.this, ShuffleActivity.class);
                 intent.putExtra("receiveRandom", randomSong);
-//                intent.putExtra("receiveRandom", mShuffleSongs);
                 startActivity(intent);
             }
         });

@@ -17,11 +17,10 @@ import java.util.concurrent.TimeUnit;
 public class AudioActivity extends AppCompatActivity {
     public Song song;
 
-    //Initialise variable
+    //Initialise variables
     TextView playerPosition, playerDuration,audioSong, audioArtist;
     SeekBar seekBar;
     ImageView btnRewind, btnPlay, btnPause, btnForward, audioImage;
-
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
     Runnable runnable;
@@ -30,6 +29,8 @@ public class AudioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
+
+        //Specifies back button in actionBar and reverts to parent activity when clicked upon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Assign variable
@@ -44,15 +45,18 @@ public class AudioActivity extends AppCompatActivity {
         audioArtist = findViewById(R.id.tvAudioArtist);
         audioImage = findViewById(R.id.audioImage);
 
+        //Calls upon intent to receive music data which is displayed in this activity
         Intent intent = getIntent();
         String sendSong = intent.getStringExtra("receiveSong");
-        //Set title as song name
         song = Song.getSong(sendSong);
+
+        //Setting text based upon data gathered through intent
         audioSong.setText(song.getSong());
         setTitle(song.getSong());
         audioArtist.setText(song.getArtist());
         audioImage.setImageResource(song.getImage());
 
+        //Run the following methods in the onCreate method:
         initialiseMediaPlayer();
         initialiseRunnable();
         getDuration();
@@ -205,7 +209,7 @@ public class AudioActivity extends AppCompatActivity {
         });
     }
 
-    //Once the song has finished playing/reached the end
+    //Once the song has finished playing/reached the end of the song
     public void setSongCompletion() {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
